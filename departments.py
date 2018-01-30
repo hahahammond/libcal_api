@@ -24,13 +24,13 @@ api_call_response  =  requests.get(test_api_url, headers = api_call_headers, ver
  
 print(api_call_response.json())
 
-input = api_call_response.json()
+my_json = api_call_response.json()
 
 # Enter the Question ID for the question on your form pertaining to department 
-input = sorted(input, key=itemgetter('[ENTER QUESTION ID HERE]'))
+my_json = sorted(my_json, key=itemgetter('[ENTER QUESTION ID HERE]'))
 
 departments = []
-for key, value in itertools.groupby(input, key=itemgetter('[ENTER QUESTION ID HERE]')):
+for key, value in itertools.groupby(my_json, key=itemgetter('[ENTER QUESTION ID HERE]')):
     dept = {}
     dept['Department Name'] = key
     total_reservations = 0
@@ -39,8 +39,8 @@ for key, value in itertools.groupby(input, key=itemgetter('[ENTER QUESTION ID HE
         dept['Total Equipment Bookings'] = total_reservations
     departments.append(dept)
 
-my_json = json2html.convert(json = departments)
+my_html = json2html.convert(json = departments)
 
 my_file = open("departments.html", 'w')
-my_file.write(my_json)
+my_file.write(my_html)
 my_file.close()

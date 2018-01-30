@@ -19,12 +19,14 @@ tokens  =  json.loads(access_token_response.text)
  
 api_call_headers  =  { 'Authorization' :  'Bearer '  +  tokens[ 'access_token' ]}
 api_call_response  =  requests.get(test_api_url, headers = api_call_headers, verify = False )
-print(api_call_response.json())
 
-input = api_call_response.json()
-my_json = json2html.convert(json = input)
+my_json = api_call_response.json()
 print(my_json)
 
+## Write json to an html file
+my_html = json2html.convert(json = my_json)
+print(my_html)
+
 my_file = open("libcal.html", 'w')
-my_file.write(my_json)
+my_file.write(my_html)
 my_file.close()
