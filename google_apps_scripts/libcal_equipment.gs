@@ -1,4 +1,3 @@
-
 // Writes LibCal equipment bookings in your system for the current date to a Google Spreadsheet
 
 
