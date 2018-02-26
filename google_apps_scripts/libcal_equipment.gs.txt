@@ -66,6 +66,7 @@ function writeJSONtoSheet(json) {
 // The number of entities (20 in this case) will vary based on what's included on your form. Adjust accordingly.
   dataRange = sheet.getRange(getFirstEmptyRowByColumnArray(), 1, rows.length, 20); 
   dataRange.setValues(rows);
+  removeDuplicates();
 
 }
 
@@ -79,6 +80,27 @@ function getFirstEmptyRowByColumnArray() {
     ct++;
   }
   return (ct+1);
+}
+
+// Remove duplicate rows in sheet
+function removeDuplicates() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+  var newData = new Array();
+  for(i in data){
+    var row = data[i];
+    var duplicate = false;
+    for(j in newData){
+      if(row.join() == newData[j].join()){
+        duplicate = true;
+      }
+    }
+    if(!duplicate){
+      newData.push(row);
+    }
+  }
+  sheet.clearContents();
+  sheet.getRange(1, 1, newData.length, newData[0].length).setValues(newData);
 }
   
   
